@@ -1,9 +1,12 @@
 class Movie < ActiveRecord::Base
+  # attr_accessible :gallery_id, :name, :image, :remote_image_url
   has_many :reviews
+  
   # belongs_to :user
-    
+
   # validates :user,
   #       presence: true
+  mount_uploader :image, ImageUploader
 
   validates :title,
     presence: true
@@ -15,9 +18,6 @@ class Movie < ActiveRecord::Base
     numericality: { only_integer: true }
 
   validates :description,
-    presence: true
-
-  validates :poster_image_url,
     presence: true
 
   validates :release_date,
