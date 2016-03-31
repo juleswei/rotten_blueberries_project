@@ -3,6 +3,7 @@
 <h1>Rotten Mangoes</h1>
 
       <%= link_to "Submit a movie!", new_movie_path if current_user%>
+      <%= link_to "Admin Page", admin_users_path if (current_user && current_user.admin) %>
 
 
     <hr>
