@@ -14,3 +14,4 @@ admin = User.create(
   lastname: "duck",
   admin: true
 )
+

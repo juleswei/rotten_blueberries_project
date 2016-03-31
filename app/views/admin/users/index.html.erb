@@ -1,1 +1,14 @@
-"index/page"
+<h1>Admin's page</h1>
+
+<% @users.each do |user| %>
+
+
+      <h2><%= user.firstname %>(<%= link_to "edit", edit_admin_user_path(user) %> or <%= link_to "delete", admin_user_path(:id => user.id), method: :delete, confirm: "Are you sure you want to delete this user?" %>)</h2>
+      <h4><%= user.lastname %></h4>
+      <p><%= user.email %></p> 
+      
+
+      <hr>
+<% end %>
+
+<%= link_to 'Create a new user', new_admin_user_path %>
