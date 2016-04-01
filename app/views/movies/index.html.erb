@@ -2,18 +2,33 @@
 <p>Find me in app/views/movies/index.html.erb</p> -->
 <h1>Rotten Blueberries</h1>
 
-      <%= link_to "Submit a movie!", new_movie_path if current_user%>
-      <%= link_to "Admin Page", admin_users_path if (current_user && current_user.admin) %>
+<%= link_to "Submit a movie!", new_movie_path if current_user%>
+<%= link_to "Admin Page", admin_users_path if (current_user && current_user.admin) %>
 
+<!-- <form method ="GET" action="/movies">
+  <input type="text" name="query" placeholder="Title or Director">
+  <input type="submit" value="Search">
+</form> -->
 
-    <hr>
-    <% @movies.each do |movie| %>
-      <%= link_to image_tag(movie.image), movie_path(movie) %>
-      <h2><%= link_to movie.title, movie_path(movie) %></h2>
-      <h3><%= formatted_date(movie.release_date) %></h3>
-      <h4>Dir. <%= movie.director %> | <%= movie.runtime_in_minutes %> minutes</h4>
-      <p><%= movie.description %></p>
-      <p><%= movie.review_average %>/10</p>
+<%= form_tag movies_path, method: :get do %>
+  <%= text_field_tag :query_title, nil, placeholder: "Title"%>
+  <%= text_field_tag :query_director, nil, placeholder: "Director"%>
+  <%= select_tag(:duration, options_for_select(Movie::DURATION_OPTIONS, prompt: "select a duration"))%>
+  <%= submit_tag "Search" %>
+<% end %>
+<hr>
+<% if @movies.empty? %>
+  <p class="notice"> Sorry, cannot find the movie you are looking for, but here are some other movies</p>
+  <%= @movies = Movie.all %> 
+<% end %>
 
-      <hr>
-    <% end %>
+<% @movies.each do |movie| %>
+  <%= link_to image_tag(movie.image), movie_path(movie) %>
+  <h2><%= link_to movie.title, movie_path(movie) %></h2>
+  <h3><%= formatted_date(movie.release_date) %></h3>
+  <h4>Dir. <%= movie.director %> | <%= movie.runtime_in_minutes %> minutes</h4>
+  <p><%= movie.description %></p>
+  <p><%= movie.review_average %>/10</p>
+<% end %>
+<hr>
+

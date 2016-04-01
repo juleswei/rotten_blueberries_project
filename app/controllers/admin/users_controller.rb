@@ -3,10 +3,13 @@ class Admin::UsersController < ApplicationController
   before_action :require_admin
 
   # layout 'admin'
-
   def index
-    @users = User.all
+    @users = User.page(params[:page]).per(10)
   end
+
+  # def index
+  #   @users = User.all
+  # end
 
   def new
     @user = User.new
@@ -16,6 +19,7 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      UserMailer.welcome_email(@user).deliver_now
       redirect_to admin_users_path, notice: "#{@user.firstname} successfully added"
     else
       render :new
@@ -37,7 +41,9 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
+    UserMailer.destroy_email(@user).deliver_now
     @user.destroy
+
     redirect_to admin_users_path
   end
 

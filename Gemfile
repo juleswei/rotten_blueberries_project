@@ -35,6 +35,7 @@ gem 'pry'
 
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
+gem 'kaminari', '~> 0.16.3'
 
 # Use unicorn as the app server
 # gem 'unicorn'

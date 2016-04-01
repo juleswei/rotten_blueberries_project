@@ -3,7 +3,10 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+
+
   def restrict_access
+
     if !current_user
       flash[:alert] = "You must log in."
       redirect_to new_session_path
@@ -18,8 +21,17 @@ class ApplicationController < ActionController::Base
 
   def require_admin
     unless current_user.admin?
+      flash[:alert] = "You must be an admin to log in."
       redirect_to root_path
     end
   end
 
 end
+  #same method as require_admin
+  # def admin_restrict_access
+    
+  #   if !current_user
+  #     flash[:alert] = "You must be an admin to log in."
+  #     redirect_to root_path
+  #   end
+  # end

@@ -1,7 +1,11 @@
 class Movie < ActiveRecord::Base
   # attr_accessible :gallery_id, :name, :image, :remote_image_url
-  has_many :reviews
-  
+  DURATION_OPTIONS = [
+    ['less than 90 min', 'short'],
+    ['90-120 min', 'medium'], 
+    ['more than 120 min', 'long']
+  ]
+  has_many :reviews 
   # belongs_to :user
 
   # validates :user,
