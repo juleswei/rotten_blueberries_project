@@ -6,6 +6,9 @@ class Movie < ActiveRecord::Base
     ['more than 120 min', 'long']
   ]
   has_many :reviews 
+  has_many :categories, through: :movie_categories
+
+  accepts_nested_attributes_for :categories
   # belongs_to :user
 
   # validates :user,
